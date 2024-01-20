@@ -11,12 +11,28 @@ class homeController extends Controller
      */
     public function index()
     {
+        // delete semua session
+        // session()->flush();
         return view('welcome');
     }
 
     public function konfigurasi()
     {
         return view('konfigurasi');
+    }
+
+    public function invoice(Request $request)
+    {
+        // set session login
+        session(['login' => 'true']);
+        // set session nama, email, password dari params
+        session(['nama' => $request->input('nama')]);
+        session(['email' => $request->input('email')]);
+        session(['password' => $request->input('password')]);
+        // set paket
+        session(['paket' => $request->input('paket')]);
+
+        return view('invoice');
     }
 
     // get whois online

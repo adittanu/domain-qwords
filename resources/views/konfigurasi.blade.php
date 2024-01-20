@@ -18,10 +18,13 @@
                 </select>
             </div>
             <div class="border-2 border-slate-600 p-3 flex justify-end">
-                <label for="harga" class="text-md font-medium p-1">Harga <span>Rp 100.000</span></label>
+                <label for="harga" class="text-md font-medium p-1">Harga <span id="disp-harga">Rp 100.000</span></label>
             </div>
-
+            @php
+            @endphp
             {{-- bagian jika sudah login --}}
+            @if (session()->has('login'))
+
             <div class="flex flex-col space-y-3 ">
                 <div class="flex items-center space-x-3">
                     <label for="paket" class="text-md font-bold">Nama :</label>
@@ -45,18 +48,29 @@
                 </div>
             </div>
 
+            @endif
+
+
 
             {{-- bagian jika belum login --}}
-            <div class="flex flex-col space-y-3 ">
-                <div class="flex items-center space-x-3">
-                    <label for="paket" class="text-md font-bold">Nama :</label>
+            @if (!session()->has('login'))
 
+            <div class="flex flex-col space-y-3 items-center">
+                <div class="flex items-center space-x-3">
+                    {{-- input nama --}}
+                    <input type="text" name="nama" id="nama" class="w-[300px] rounded-md p-2 mr-0" placeholder="Nama">
                 </div>
                 <div class="flex items-center space-x-3">
-                    <label for="paket" class="text-md font-bold">Email :</label>
-                    <label for="paket" class="text-md font-bold" id="email">&nbsp;</label>
+                    {{-- input email --}}
+                    <input type="text" name="email" id="email" class="w-[300px] rounded-md p-2 mr-0" placeholder="Email">
+                </div>
+                <div class="flex items-center space-x-3">
+                    {{-- input password --}}
+                    <input type="password" name="password" id="password" class="w-[300px] rounded-md p-2 mr-0" placeholder="Password">
                 </div>
             </div>
+            @endif
+
 
             {{-- checkout --}}
             <div class="flex justify-end items-center space-x-3">
@@ -69,4 +83,31 @@
 </html>
 
 {{-- script import from vite --}}
-@vite('resources/js/home.js')
+<script>
+// handle select mempengaruhi harga
+document.getElementById("paket").addEventListener("change", function () {
+    // ubah disp harga
+    document.getElementById("disp-harga").innerHTML = "Rp " + this.value * 100000;
+})
+
+    // handle button id checkout
+document.getElementById("checkout").addEventListener("click", function () {
+    // pindah ke lokasi invoice
+    // jika session login ada
+    if (sessionStorage.getItem("login") == "true") {
+        // gunakan session dari sessionStorage
+        window.location.href = "/invoice?login=true&nama=" + sessionStorage.getItem("nama") + "&email=" + sessionStorage.getItem("email") + "&password=" + sessionStorage.getItem("password") + "&paket=" + sessionStorage.getItem("paket");
+    } else {
+        // set session dari inputan
+        // sessionStorage.setItem("login", true);
+        // sessionStorage.setItem("nama", document.getElementById("nama").value);
+        // sessionStorage.setItem("email", document.getElementById("email").value);
+        // sessionStorage.setItem("password", document.getElementById("password").value);
+        // pindah ke lokasi invoice
+        window.location.href = "/invoice?login=true&nama=" + document.getElementById("nama").value + "&email=" + document.getElementById("email").value + "&password=" + document.getElementById("password").value + "&paket=" + document.getElementById("paket").value;
+    }
+});
+
+
+</script>
+{{-- @vite('resources/js/konfiguration.js') --}}

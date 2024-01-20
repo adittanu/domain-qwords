@@ -21,6 +21,8 @@ use App\Http\Controllers\homeController;
 Route::get('/', [homeController::class, 'index']);
 // konfigurasi
 Route::get('/konfigurasi', [homeController::class, 'konfigurasi']);
+// invoice
+Route::get('/invoice', [homeController::class, 'invoice']);
 // route get "/api/whois?domain=" + domain; ke controller homeController
 Route::get('/api/whois', [homeController::class, 'getWhoisOnline']);
 // check login
