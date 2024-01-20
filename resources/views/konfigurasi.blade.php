@@ -68,6 +68,10 @@
                     {{-- input password --}}
                     <input type="password" name="password" id="password" class="w-[300px] rounded-md p-2 mr-0" placeholder="Password">
                 </div>
+                <div class="flex items-center space-x-3">
+                    {{-- jika sudah ada akun login --}}
+                    <label for="login" class="text-md font-medium p-1">atau login <span id="disp-login" class="text-blue-500 cursor-pointer">disini</span></label>
+                </div>
             </div>
             @endif
 
