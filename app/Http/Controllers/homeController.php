@@ -29,7 +29,7 @@ class homeController extends Controller
         session(['nama' => $request->input('nama')]);
         session(['email' => $request->input('email')]);
         session(['password' => $request->input('password')]);
-        // set paket
+        // ambil dari select paket
         session(['paket' => $request->input('paket')]);
 
         return view('invoice');

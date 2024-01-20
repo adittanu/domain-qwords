@@ -11,7 +11,7 @@
             {{-- input select paket domain --}}
             <div class="flex justify-between items-center space-x-3 ">
                 <label for="paket" class="text-md font-bold">Paket Domain</label>
-                <select name="paket" id="paket" class="w-[300px] rounded-md p-2 mr-0">
+                <select name="select_paket" id="select-paket" class="w-[300px] rounded-md p-2 mr-0">
                     <option value="1" selected>1 tahun</option>
                     <option value="2">2 tahun</option>
                     <option value="3">3 tahun</option>
@@ -85,7 +85,7 @@
 {{-- script import from vite --}}
 <script>
 // handle select mempengaruhi harga
-document.getElementById("paket").addEventListener("change", function () {
+document.getElementById("select-paket").addEventListener("change", function () {
     // ubah disp harga
     document.getElementById("disp-harga").innerHTML = "Rp " + this.value * 100000;
 })
@@ -96,7 +96,7 @@ document.getElementById("checkout").addEventListener("click", function () {
     // jika session login ada
     if (sessionStorage.getItem("login") == "true") {
         // gunakan session dari sessionStorage
-        window.location.href = "/invoice?login=true&nama=" + sessionStorage.getItem("nama") + "&email=" + sessionStorage.getItem("email") + "&password=" + sessionStorage.getItem("password") + "&paket=" + sessionStorage.getItem("paket");
+        window.location.href = "/invoice?login=true&nama=" + sessionStorage.getItem("nama") + "&email=" + sessionStorage.getItem("email") + "&password=" + sessionStorage.getItem("password") + "&paket=" + document.getElementById("select-paket").value;
     } else {
         // set session dari inputan
         // sessionStorage.setItem("login", true);
@@ -104,7 +104,7 @@ document.getElementById("checkout").addEventListener("click", function () {
         // sessionStorage.setItem("email", document.getElementById("email").value);
         // sessionStorage.setItem("password", document.getElementById("password").value);
         // pindah ke lokasi invoice
-        window.location.href = "/invoice?login=true&nama=" + document.getElementById("nama").value + "&email=" + document.getElementById("email").value + "&password=" + document.getElementById("password").value + "&paket=" + document.getElementById("paket").value;
+        window.location.href = "/invoice?login=true&nama=" + document.getElementById("nama").value + "&email=" + document.getElementById("email").value + "&password=" + document.getElementById("password").value + "&paket=" + document.getElementById("select-paket").value;
     }
 });
 

@@ -46,14 +46,32 @@
                     </tr>
                     <tr>
                         <td class="border-2 border-gray-400"> 1 </td>
-                        <td class="border-2 border-gray-400"> Paket 1 </td>
-                        <td class="border-2 border-gray-400"> Rp. 100.000 </td>
+                        @php
+                            if (session()->has('paket')) {
+                                echo "<td class='border-2 border-gray-400'>Paket ". session('paket'). " tahun</td>";
+                            } else {
+                                echo "<td class='border-2 border-gray-400'>-</td>";
+                            }
+                        @endphp
+                        @php
+                            if (session()->has('paket')) {
+                                echo "<td class='border-2 border-gray-400'>". session('paket'). "00000</td>";
+                            } else {
+                                echo "<td class='border-2 border-gray-400'>-</td>";
+                            }
+                        @endphp
                     </tr>
                 </table>
 
                 <div class="flex items-center space-x-3">
                     <label for="paket" class="text-md font-bold">Total :</label>
-                    <label for="paket" class="text-md font-bold">Rp. 100.000</label>
+                    @php
+                        if (session()->has('paket')) {
+                            echo "<label for='paket' class='text-md font-bold' id='total'>". session('paket'). "00000</label>";
+                        } else {
+                            echo "<label for='paket' class='text-md font-bold' id='total'></label>";
+                        }
+                    @endphp
                 </div>
                 <div class="flex items-center space-x-3">
                     <label for="paket" class="text-md font-bold">Silahkan Bayar ke no rekening berikut :</label>
